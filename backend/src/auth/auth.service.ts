@@ -1,36 +1,48 @@
 import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
+import { CreateUserDto } from 'src/users/user-dto/createUserDto';
 import { UsersService } from 'src/users/users.service';
-
 
 @Injectable()
 export class AuthService {
     constructor(
-        private usersService : UsersService ,
-        private jwtService : JwtService 
+        private userService : UsersService
     ){}
 
+    private async validateUser(email:string , password:string):Promise<User | null>{
+        const user = await this.userService.findByEmail(email);
 
-    async validateUser(email:string, password:string):Promise<any>{
-        const user = await this.usersService.findByEmail(email)
-        console.log('test')
-        if(!user) return null ;
+        if(!user){
+            return null
+        }
 
-        console.log(user);
-
-        if(password != user.password){
-            return null;
+        if(password !== user.password){
+            return null 
         }
 
         return user ;
     }
 
-    async login(user:User){
-        const payload = { email : user.email , id : user.id };
 
-        return {
-            token : this.jwtService.sign(payload)
+    async register(createUserDto:CreateUserDto):Promise<User | null>{
+        const user = await this.userService.findByEmail(createUserDto.email);
+
+        if(user){
+            return null;
         }
+
+        const result = await this.userService.create(createUserDto);
+
+        return result ;
+    }
+
+    async login(email:string , password:string):Promise<User | null>{
+        const user = await this.validateUser(email , password);
+
+        if(!user){
+            return null 
+        }
+
+        return user ; 
     }
 }

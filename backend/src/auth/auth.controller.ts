@@ -1,15 +1,19 @@
-import { Controller, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post } from '@nestjs/common';
+import { CreateUserDto } from 'src/users/user-dto/createUserDto';
 import { AuthService } from './auth.service';
-import { LocalAuthGuard } from './local.strategy.guard';
 
 @Controller('auth')
 export class AuthController {
-    constructor(private authService:AuthService){}
+    constructor(
+        private authService:AuthService
+    ){}
 
-    
-    @UseGuards(LocalAuthGuard)
-    @Post('login')
-    async login(@Request() req) {
-        return this.authService.login(req.user)
+    @Post('register')
+    async register(@Body() body , createUserDto:CreateUserDto){
+        const user = await this.authService.register(createUserDto);
+
+        if(!user){
+            throw new HttpException('email or password not valid' , HttpStatus.BAD_REQUEST);
+        }
     }
 }

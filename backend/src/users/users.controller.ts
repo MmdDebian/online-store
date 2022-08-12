@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body,  Param, Delete, HttpException, HttpStatus, Put } from '@nestjs/common';
+import { CreateUserDto } from './user-dto/createUserDto';
 import { UsersService } from './users.service';
-import { IUpdateUser, IUser } from 'src/utils/interfaces';
 
 @Controller('users')
 export class UsersController {
@@ -8,7 +8,7 @@ export class UsersController {
 
   @Post()
   
-  async create(@Body() createUserDto: IUser) {
+  async create(@Body() createUserDto:CreateUserDto) {
 
     const user = await this.usersService.findByEmail(createUserDto.email);
 
@@ -44,7 +44,7 @@ export class UsersController {
   }
 
   @Put(':id')
-  async update(@Param('id') id:number, @Body() updateUserDto: IUpdateUser) {
+  async update(@Param('id') id:number, @Body() updateUserDto) {
     const foundUser = await this.usersService.findOne(id);
 
     if(!foundUser){

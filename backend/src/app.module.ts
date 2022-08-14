@@ -10,13 +10,16 @@ import { AuthController } from './auth/auth.controller';
 import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
 import { AuthMiddleware } from './auth/auth.middleware';
+import { ProductController } from './product/product.controller';
+import { ProductService } from './product/product.service';
+import { ProductModule } from './product/product.module';
 
 
 
 @Module({
-  imports: [UsersModule,ProfileModule, AuthModule],
-  controllers: [AppController ,ProfileController, AuthController],
-  providers: [AppService,UsersService,ProfileService, AuthService],
+  imports: [UsersModule,ProfileModule, AuthModule, ProductModule],
+  controllers: [AppController ,ProfileController, AuthController, ProductController],
+  providers: [AppService,UsersService,ProfileService, AuthService, ProductService],
 })
 
 export class AppModule implements NestModule {

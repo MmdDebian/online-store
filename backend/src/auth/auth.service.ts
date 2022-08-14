@@ -1,48 +1,53 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
-import { CreateUserDto } from 'src/users/user-dto/createUserDto';
 import { UsersService } from 'src/users/users.service';
+import * as jwt from 'jsonwebtoken' ;
+import * as bcrypt from 'bcrypt';
+import { User  } from '@prisma/client';
+import { RegisterDto } from './auth-dto/registerDto';
+import { LoginDto } from './auth-dto/loginDto';
 
 @Injectable()
 export class AuthService {
-    constructor(
-        private userService : UsersService
-    ){}
+    constructor(private userService:UsersService){}
 
-    private async validateUser(email:string , password:string):Promise<User | null>{
-        const user = await this.userService.findByEmail(email);
-
-        if(!user){
-            return null
-        }
-
-        if(password !== user.password){
-            return null 
-        }
-
-        return user ;
+    private async generateToken(user:User):Promise<any>{
+        return await jwt.sign({userId:user.id} , process.env.JWT_KEY , {expiresIn : '2h'});
     }
 
-
-    async register(createUserDto:CreateUserDto):Promise<User | null>{
-        const user = await this.userService.findByEmail(createUserDto.email);
-
-        if(user){
-            return null;
-        }
-
-        const result = await this.userService.create(createUserDto);
-
-        return result ;
+    private async comparePassword(password:string , hash:string):Promise<boolean | null>{
+        return new Promise((resolve, reject) => {
+            bcrypt.compare(password , hash)
+            .then(same=>{
+                if(!same) return resolve(null);
+                resolve(same);
+            })
+            .catch((err)=>reject(err))
+        });
     }
 
-    async login(email:string , password:string):Promise<User | null>{
-        const user = await this.validateUser(email , password);
+    async register(registerDto:RegisterDto):Promise<any>{
+        const user = await this.userService.findByEmail(registerDto.email);
 
-        if(!user){
-            return null 
-        }
+        if(user) return null ;
 
-        return user ; 
+        const newUser = await this.userService.create(registerDto);
+
+        const token = await this.generateToken(newUser);
+
+        return {token} ;
+    }
+
+    async login(loginDto:LoginDto):Promise<any>{
+        const user = await this.userService.findByEmail(loginDto.email);
+
+        if(!user) return null ;
+
+        const isValid = await this.comparePassword(loginDto.password , user.password);
+
+        if(!isValid) return null ;
+
+        const token = await this.generateToken(user);
+
+        return {token} ;
     }
 }

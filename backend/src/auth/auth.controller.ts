@@ -1,19 +1,32 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Param, Post } from '@nestjs/common';
+import { Body, Controller, HttpException, HttpStatus, Post } from '@nestjs/common';
 import { CreateUserDto } from 'src/users/user-dto/createUserDto';
+import { LoginDto } from './auth-dto/loginDto';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
-    constructor(
-        private authService:AuthService
-    ){}
+    constructor(private authService:AuthService){}
 
     @Post('register')
-    async register(@Body() body , createUserDto:CreateUserDto){
-        const user = await this.authService.register(createUserDto);
+    async register(@Body() body:CreateUserDto):Promise<string | HttpException>{
+        const result = await this.authService.register(body);
 
-        if(!user){
-            throw new HttpException('email or password not valid' , HttpStatus.BAD_REQUEST);
+        if(!result){
+            throw new HttpException('email or password is invalid' , HttpStatus.BAD_REQUEST);
         }
+
+        return result ;
+    }
+
+    @Post('login')
+    async login(@Body() body:LoginDto):Promise<string | HttpException>{
+        
+        const result = await this.authService.login(body);
+
+        if(!result){
+            throw new HttpException('email or password is invalid' , HttpStatus.BAD_REQUEST);
+        }
+
+        return result;
     }
 }

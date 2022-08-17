@@ -27,15 +27,14 @@ model User {
 model Product {
   id Int @id @default(autoincrement())
   name String
-  price String?
-  discount String?
+  price Int?
+  discount Int?
   color String?
-  size String
+  size Int?
   top Boolean @default(false)
   description String @db.Text 
   orders Order[]
 }
-
 
 model Order{
   id Int @id @default(autoincrement())

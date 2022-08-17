@@ -28,7 +28,7 @@ export class UsersService {
   }
 
   findOne(id):Promise<User | null>{
-    return user.findUnique({where : {id : parseInt(id)}})
+    return user.findUnique({where : {id :id}})
   }
 
   findByEmail(email:string):Promise<User | null>{
@@ -36,10 +36,10 @@ export class UsersService {
   }
 
   update(id, updateUserDto):Promise<User>{
-    return user.update({where :{id :parseInt(id)} , data : updateUserDto})
+    return user.update({where :{id : id} , data : updateUserDto})
   }
 
   remove(id):Promise<any>{
-    return user.delete({where : {id : parseInt(id)}})
+    return user.delete({where : {id : id}})
   }
 }

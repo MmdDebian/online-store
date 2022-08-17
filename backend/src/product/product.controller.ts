@@ -1,5 +1,5 @@
-import { Body, Controller, Get, HttpException, HttpStatus, NotFoundException, Param, Post, Put } from '@nestjs/common';
-import { Product } from '@prisma/client';
+import { Body, Controller, Get, HttpException, HttpStatus, NotFoundException, Param, Post, Put, Req } from '@nestjs/common';
+import { Product, Role } from '@prisma/client';
 import { createProductDto } from './product-dto/createProductDto';
 import { ProductService } from './product.service';
 
@@ -27,13 +27,20 @@ export class ProductController {
 
     @Post()
     async create(@Body() body:createProductDto):Promise<Product | HttpException>{
-        const result = await this.productService.create(body);
+        
+        let { top } = body ;
 
+        if(top){
+            top = true ;
+        }
+        
+        const result = await this.productService.create(body);
         throw new HttpException({message:"successfully created" , data:result} , HttpStatus.CREATED); 
     }
 
-    @Put()
+    @Put(':id')
     async update(@Param() id , @Body() body:createProductDto):Promise<Product | HttpException>{
+        
         const product = await this.productService.findOne(id);
 
         if(!product){

@@ -1,26 +1,26 @@
-/*
-  Warnings:
+-- CreateTable
+CREATE TABLE `User` (
+    `id` VARCHAR(191) NOT NULL,
+    `avatar` VARCHAR(191) NULL,
+    `name` VARCHAR(191) NULL,
+    `email` VARCHAR(191) NOT NULL,
+    `password` VARCHAR(191) NOT NULL,
+    `phoneNumber` VARCHAR(191) NULL,
+    `role` ENUM('ADMIN', 'USER') NOT NULL DEFAULT 'USER',
+    `bio` TEXT NULL,
 
-  - The primary key for the `user` table will be changed. If it partially fails, the table could be left without primary key constraint.
-
-*/
--- AlterTable
-ALTER TABLE `user` DROP PRIMARY KEY,
-    ADD COLUMN `avatar` VARCHAR(191) NULL,
-    ADD COLUMN `bio` TEXT NULL,
-    ADD COLUMN `phoneNumber` VARCHAR(191) NULL,
-    ADD COLUMN `role` ENUM('ADMIN', 'USER') NOT NULL DEFAULT 'USER',
-    MODIFY `id` VARCHAR(191) NOT NULL,
-    ADD PRIMARY KEY (`id`);
+    UNIQUE INDEX `User_email_key`(`email`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `Product` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
-    `price` VARCHAR(191) NULL,
-    `discount` VARCHAR(191) NULL,
+    `price` INTEGER NULL,
+    `discount` INTEGER NULL,
     `color` VARCHAR(191) NULL,
-    `size` VARCHAR(191) NOT NULL,
+    `size` INTEGER NULL,
     `top` BOOLEAN NOT NULL DEFAULT false,
     `description` TEXT NOT NULL,
 
@@ -32,6 +32,7 @@ CREATE TABLE `Order` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `userId` VARCHAR(191) NOT NULL,
     `productId` INTEGER NOT NULL,
+    `status` ENUM('FINISING', 'UNFINISHED') NOT NULL DEFAULT 'UNFINISHED',
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

@@ -15,7 +15,7 @@ CREATE TABLE `User` (
 
 -- CreateTable
 CREATE TABLE `Product` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
     `price` INTEGER NULL,
     `discount` INTEGER NULL,
@@ -31,7 +31,7 @@ CREATE TABLE `Product` (
 CREATE TABLE `Order` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `userId` VARCHAR(191) NOT NULL,
-    `productId` INTEGER NOT NULL,
+    `productId` VARCHAR(191) NOT NULL,
     `status` ENUM('FINISING', 'UNFINISHED') NOT NULL DEFAULT 'UNFINISHED',
 
     PRIMARY KEY (`id`)

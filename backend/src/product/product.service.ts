@@ -12,8 +12,8 @@ export class ProductService {
         return Product.findMany({})
     }
 
-    findOne(id:number):Promise<Product | null>{
-        return Product.findUnique({where : {id:id}});
+    findOne(id:string):Promise<Product | null>{
+        return Product.findUnique({where : {id : id}});
     }
 
     findByName(name:string):Promise<Product | null>{

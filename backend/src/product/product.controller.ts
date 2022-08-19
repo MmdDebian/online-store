@@ -1,5 +1,6 @@
-import { Body, Controller, Get, HttpException, HttpStatus, NotFoundException, Param, Post, Put, Req } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, NotFoundException, Param, Post, Put, Req, SetMetadata, UseGuards } from '@nestjs/common';
 import { Product } from '@prisma/client';
+import { AdminGuard } from 'src/authorizetion/admin.guard';
 import { createProductDto } from './product-dto/createProductDto';
 import { ProductService } from './product.service';
 
@@ -25,6 +26,7 @@ export class ProductController {
         return product ;
     }
 
+    @UseGuards(AdminGuard)
     @Post()
     async create(@Body() body:createProductDto):Promise<Product | HttpException>{
         const result = await this.productService.create(body);

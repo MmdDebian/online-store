@@ -33,6 +33,7 @@ export class ProductController {
         throw new HttpException({message:"successfully created" , data:result} , HttpStatus.CREATED); 
     }
 
+    @UseGuards(AdminGuard)
     @Put(':id')
     async update(@Param('id') id , @Body() body:createProductDto):Promise<Product | HttpException>{
         

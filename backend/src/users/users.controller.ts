@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Body,  Param, Delete, HttpException, HttpStatus, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body,  Param, Delete, HttpException, HttpStatus, Put, UseGuards } from '@nestjs/common';
+import { AdminGuard } from 'src/authorizetion/admin.guard';
 import { CreateUserDto } from './user-dto/createUserDto';
 import { UsersService } from './users.service';
 
@@ -6,8 +7,9 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+
+  @UseGuards(AdminGuard)
   @Post()
-  
   async create(@Body() createUserDto:CreateUserDto) {
 
     const user = await this.usersService.findByEmail(createUserDto.email);
@@ -26,11 +28,13 @@ export class UsersController {
     return result ;
   }
 
+  @UseGuards(AdminGuard)
   @Get()
   async findAll() {
     return await this.usersService.findAll();
   }
 
+  @UseGuards(AdminGuard)
   @Get(':id')
   async findOne(@Param('id') id: number) {
     console.log(id)
@@ -43,6 +47,7 @@ export class UsersController {
     return result ;
   }
 
+  @UseGuards(AdminGuard)
   @Put(':id')
   async update(@Param('id') id:number, @Body() updateUserDto) {
     const foundUser = await this.usersService.findOne(id);
@@ -54,6 +59,7 @@ export class UsersController {
     return await this.usersService.update(id , updateUserDto);
   }
 
+  @UseGuards(AdminGuard)
   @Delete(':id')
   remove(@Param('id') id: number) {
     return this.usersService.remove(id);

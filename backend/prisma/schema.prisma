@@ -27,8 +27,8 @@ model User {
 model Product {
   id String @id @default(uuid())
   name String
-  price Int?
-  discount Int?
+  price Int? 
+  discount Int? 
   color String?
   size Int?
   top Boolean @default(false)

@@ -10,13 +10,12 @@ export class AdminGuard implements CanActivate {
     context: ExecutionContext,
   ): boolean {
     const [req] = context.getArgs();
-    const admin = req?.user?.role ;
+    const role = req?.user?.role;
 
-
-    if(admin === 'ADMIN'){
-      return true
+    if(role == 'ADMIN'){
+      return true;
     }
 
-    throw new ForbiddenException
+    throw new ForbiddenException()
   }
 }

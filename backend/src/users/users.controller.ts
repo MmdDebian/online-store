@@ -14,7 +14,6 @@ export class UsersController {
 
     const user = await this.usersService.findByEmail(createUserDto.email);
 
-    
     if(user){
       throw new HttpException('email or password not valid' , HttpStatus.CONFLICT)
     }
@@ -36,8 +35,8 @@ export class UsersController {
 
   @UseGuards(AdminGuard)
   @Get(':id')
-  async findOne(@Param('id') id: number) {
-    console.log(id)
+  async findOne(@Param('id') id:string) {
+
     const result = await this.usersService.findOne(id);
 
     if(!result){

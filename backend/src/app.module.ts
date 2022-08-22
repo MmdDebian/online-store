@@ -28,10 +28,12 @@ export class AppModule implements NestModule {
       .apply(AuthMiddleware)
       .forRoutes(
         { path : 'profile' ,method :RequestMethod.ALL },
-        { path : 'product ', method: RequestMethod.POST},
-        { path : 'product/(.*)', method: RequestMethod.PUT},
+        { path : 'product', method: RequestMethod.POST},
+        { path : 'product/*', method: RequestMethod.PUT},
         { path : 'users' , method : RequestMethod.ALL },
-        { path : 'users/(.*)' , method : RequestMethod.ALL },
+        { path : 'users/*' , method : RequestMethod.GET },
+        { path : 'users/*' , method : RequestMethod.POST },
+        { path : 'users/*' , method : RequestMethod.PUT },
       )
   }
 }

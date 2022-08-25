@@ -1,16 +1,23 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik' ;
-import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { register } from '../services/auth.service';
+import { getUser } from '../services/users.service';
 
 function Register() {
 
     const [error , setError] = useState('');
-    const [ isAuth , setIsAuth] = useState(false);
+    const navigate = useNavigate();
     
+    useEffect(()=>{
+        getUser()
+        .then((response)=>{
+            navigate('/')
+        })
+    },[])
+
     return ( 
         <div>
-            <h1>Register form</h1>
             <Formik
                 initialValues={{name : '' , email : '' , password : ''}}
                 validate={value=>{
@@ -18,7 +25,7 @@ function Register() {
                     if(!value.name){
                         errors.name = 'name is required'
                     }
-                    if(value.email == ''){
+                    if(value.email === ''){
                         errors.email = 'Email is required'
                     }
                     const isValidEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value.email)
@@ -35,13 +42,13 @@ function Register() {
                     register(values.name , values.email , values.password)
                     .then((response)=>{
                         localStorage.setItem('token' , response.data.token);
-                        setIsAuth(true);
-                        setSubmitting(false)
+                        window.location.reload()
+                        navigate('/')
+                        setSubmitting(false);
                     })
-                    .catch((err)=>{
-                        console.log(err)
+                    .catch(({response})=>{
                         setError(
-                            err.response.data.message || 
+                            response.data.message || 
                             'intranl server error')
                         setSubmitting(false)
                     })
@@ -49,12 +56,7 @@ function Register() {
             >
             {({isSubmitting})=>(
                <>
-                {isAuth &&
-                    (
-                        <Navigate to='/' />
-                    )
-                }
-                <section className="vh-100" style={{backgroundColor: '#eee'}}>
+                <section className="vh-100">
                     <div className="container h-100">
                         <div className="row d-flex justify-content-center align-items-center h-100">
                         <div className="col-lg-12 col-xl-11">

@@ -8,3 +8,16 @@ export function register (name , email , password){
         password : password
     });
 }
+
+
+export function login(email , password){
+    return axios.post(url.auth + '/login' , {
+        email : email , 
+        password : password
+    })
+}
+
+export function logOut(){
+    localStorage.clear('token')
+    return true ;
+}

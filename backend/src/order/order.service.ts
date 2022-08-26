@@ -3,7 +3,7 @@ import { Order, PrismaClient, Product, User } from '@prisma/client';
 import { createProductDto } from 'src/product/product-dto/createProductDto';
 import { ProductService } from 'src/product/product.service';
 import { UsersService } from 'src/users/users.service';
-import { createOrderDto } from './order.sto';
+import { createOrderDto } from './order.dto';
 
 const order = new PrismaClient().order ; 
 

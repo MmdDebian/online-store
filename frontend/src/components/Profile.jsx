@@ -14,7 +14,7 @@ function Profile(props) {
         }
     },[])
 
-
+    
     const handleLogOut = ()=>{
         logOut()
         window.location.reload();

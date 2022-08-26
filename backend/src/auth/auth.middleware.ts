@@ -25,7 +25,6 @@ export class AuthMiddleware implements NestMiddleware {
             next();
         }
         catch(err){
-            console.log(err)
             throw new UnauthorizedException();
         }
     }

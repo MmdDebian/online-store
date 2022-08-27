@@ -16,7 +16,7 @@ export class ProductController {
     }
 
     @Get(':id')
-    async finOne(@Param('id') id:string):Promise<Product | HttpException>{
+    async finOne(@Param('id') id:number):Promise<Product | HttpException>{
         const product = await this.productService.findOne(id);
 
         if(!product){

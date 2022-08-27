@@ -1,15 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { Order, PrismaClient, Product, User } from '@prisma/client';
+import { Order, User , Product } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { ProductService } from 'src/product/product.service';
 import { UsersService } from 'src/users/users.service';
-import { createOrderDto } from './order.dto';
+import { createOrderDto } from './dto/create-order.dto';
 
 @Injectable()
 export class OrderService {
     constructor(
         private userService:UsersService , 
         private productService:ProductService , 
-        private prisma:PrismaClient
+        private prisma:PrismaService
     ){}
 
     findAll():Promise<Order[]>{

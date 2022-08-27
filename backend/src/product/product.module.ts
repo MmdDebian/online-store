@@ -1,4 +1,5 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { UsersService } from 'src/users/users.service';
 import { ProductController } from './product.controller';
 import { ProductService } from './product.service';
@@ -6,6 +7,6 @@ import { ProductService } from './product.service';
     imports : [] ,
     exports : [] , 
     controllers : [ProductController] ,
-    providers : [ProductService , UsersService] ,
+    providers : [PrismaService ,ProductService , UsersService] ,
 })
 export class ProductModule{}

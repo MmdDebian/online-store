@@ -16,12 +16,13 @@ import { ProductModule } from './product/product.module';
 import { OrderController } from './order/order.controller';
 import { OrderService } from './order/order.service';
 import { OrderModule } from './order/order.module';
+import { PrismaService } from './prisma/prisma.service';
 
 
 @Module({
   imports: [UsersModule,ProfileModule, AuthModule, ProductModule, OrderModule],
   controllers: [AppController ,ProfileController, AuthController, ProductController, OrderController],
-  providers: [AppService,UsersService,ProfileService, AuthService, ProductService, OrderService],
+  providers: [PrismaService, AppService,UsersService,ProfileService, AuthService, ProductService, OrderService],
 })
 
 export class AppModule implements NestModule {

@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body,  Param, Delete, HttpException, HttpStatus, Put, UseGuards } from '@nestjs/common';
 import { AdminGuard } from 'src/authorizetion/admin.guard';
-import { CreateUserDto } from './createUserDto';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -48,7 +49,7 @@ export class UsersController {
 
   @UseGuards(AdminGuard)
   @Put(':id')
-  async update(@Param('id') id:number, @Body() updateUserDto) {
+  async update(@Param('id') id:string, @Body() updateUserDto:UpdateUserDto) {
     const foundUser = await this.usersService.findOne(id);
 
     if(!foundUser){
@@ -60,7 +61,7 @@ export class UsersController {
 
   @UseGuards(AdminGuard)
   @Delete(':id')
-  remove(@Param('id') id: number) {
+  remove(@Param('id') id: string) {
     return this.usersService.remove(id);
   }
 }

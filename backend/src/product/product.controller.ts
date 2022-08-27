@@ -1,7 +1,7 @@
 import { Body, Controller, Get, HttpException, HttpStatus, NotFoundException, Param, Post, Put, Req, SetMetadata, UseGuards } from '@nestjs/common';
 import { Product } from '@prisma/client';
 import { AdminGuard } from 'src/authorizetion/admin.guard';
-import { createProductDto } from './product-dto/createProductDto';
+import { createProductDto } from './dto/createProductDto';
 import { ProductService } from './product.service';
 
 @Controller('product')

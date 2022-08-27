@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body,  Param, Delete, HttpException, HttpStatus, Put, UseGuards } from '@nestjs/common';
 import { AdminGuard } from 'src/authorizetion/admin.guard';
-import { CreateUserDto } from './user-dto/createUserDto';
+import { CreateUserDto } from './createUserDto';
 import { UsersService } from './users.service';
 
 @Controller('users')

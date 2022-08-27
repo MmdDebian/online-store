@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
-import * as jwt from 'jsonwebtoken' ;
-import * as bcrypt from 'bcrypt';
+import { sign } from 'jsonwebtoken' ;
+import { compare } from 'bcrypt';
 import { User  } from '@prisma/client';
 import { RegisterDto } from './auth-dto/registerDto';
 import { LoginDto } from './auth-dto/loginDto';
@@ -11,12 +11,12 @@ export class AuthService {
     constructor(private userService:UsersService){}
 
     private async generateToken(user:User):Promise<any>{
-        return await jwt.sign({userId:user.id} , process.env.JWT_KEY , {expiresIn : '2h'});
+        return await sign({userId:user.id} , process.env.JWT_KEY , {expiresIn : '2h'});
     }
 
     private async comparePassword(password:string , hash:string):Promise<boolean | null>{
         return new Promise((resolve, reject) => {
-            bcrypt.compare(password , hash)
+            compare(password , hash)
             .then(same=>{
                 if(!same) return resolve(null);
                 resolve(same);

@@ -1,17 +1,20 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaClient , User } from '@prisma/client';
-import { CreateUserDto } from './user-dto/createUserDto';
-import * as bcrypt from 'bcrypt';
+import { User } from '@prisma/client';
+import { CreateUserDto } from './dto/create-user.dto';
+import { hash , genSalt } from 'bcrypt';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { UpdateUserDto } from './dto/update-user.dto';
 
-const user = new PrismaClient().user ;
 
 @Injectable()
 export class UsersService {
+
+  constructor(private prisma:PrismaService){}
   
   private hashPassword(password:string):Promise<string | null>{
     return new Promise((resolve, reject) => {
-      bcrypt.genSalt(12).then(salt=>{
-        bcrypt.hash(password , salt).then(hash=>{
+      genSalt(12).then(salt=>{
+        hash(password , salt).then(hash=>{
           return resolve(hash);
         })
       })
@@ -20,26 +23,26 @@ export class UsersService {
 
   async create(createUserDto:CreateUserDto) {
     createUserDto.password = await this.hashPassword(createUserDto.password);
-    return user.create({data : createUserDto});
+    return this.prisma.user.create({data : createUserDto});
   }
 
   findAll():Promise<User[]> {
-    return user.findMany({})
+    return this.prisma.user.findMany({})
   }
 
-  findOne(id):Promise<User | null>{
-    return user.findUnique({where : {id :id}})
+  findOne(id:string):Promise<User | null>{
+    return this.prisma.user.findUnique({where : {id :id}})
   }
 
   findByEmail(email:string):Promise<User | null>{
-    return user.findUnique({where : {email : email}});
+    return this.prisma.user.findUnique({where : {email : email}});
   }
 
-  update(id, updateUserDto):Promise<User>{
-    return user.update({where :{id : id} , data : updateUserDto})
+  update(id:string , updateUserDto:UpdateUserDto):Promise<User>{
+    return this.prisma.user.update({where :{id : id} , data : updateUserDto})
   }
 
-  remove(id):Promise<any>{
-    return user.delete({where : {id : id}})
+  remove(id:string):Promise<any>{
+    return this.prisma.user.delete({where : {id : id}})
   }
 }

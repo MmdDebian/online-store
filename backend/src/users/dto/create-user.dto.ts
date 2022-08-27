@@ -1,7 +1,6 @@
-import { IsByteLength, IsEmail , IsNotEmpty, IS_LENGTH, Length } from 'class-validator';
+import { IsEmail , IsNotEmpty, Length } from 'class-validator';
 
-
-export class createUserDto{
+export class CreateUserDto{
     @IsNotEmpty()
     name : string ; 
     

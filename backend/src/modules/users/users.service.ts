@@ -27,7 +27,16 @@ export class UsersService {
   }
 
   findAll():Promise<User[]> {
-    return this.prisma.user.findMany({})
+    return this.prisma.user.findMany({
+      include : {
+        orders : {
+          include : {
+            product : true
+          }
+        } ,
+        comments : true 
+      }
+    })
   }
 
   findOne(id:string):Promise<User | null>{

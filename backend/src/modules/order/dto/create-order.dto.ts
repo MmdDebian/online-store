@@ -1,3 +1,8 @@
+import { IsNumber, Max, Min } from "class-validator";
+
 export class CreateOrderDto {
-    readonly quantity : number 
+    @IsNumber()
+    @Min(0)
+    @Max(10)
+    quantity : number ;
 }

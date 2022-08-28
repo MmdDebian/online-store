@@ -2,14 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { Order, User , Product } from '@prisma/client';
 import { PrismaService } from 'src/modules/prisma/prisma.service';
 import { ProductService } from 'src/modules/product/product.service';
-import { UsersService } from 'src/modules/users/users.service';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { IOrder } from './order.interface';
 
 @Injectable()
 export class OrderService {
     constructor(
-        private userService:UsersService , 
         private productService:ProductService , 
         private prisma:PrismaService
     ){}
@@ -17,13 +15,21 @@ export class OrderService {
     findAll(user:User):Promise<Order[]>{
         return this.prisma.order.findMany({
             where : {
-                userId : user.id  
+                userId : user.id ,
             }
         })
     }
 
     findOne(user:User , id:number):Promise<Order | null>{
-        return this.prisma.order.findUnique({where : {id : Number(id)}})
+        return this.prisma.order.findFirst({
+            where : {
+                id : Number(id) ,
+                userId : user.id 
+            },
+            include : {
+                product : true
+            }
+        })
     }
 
     private findByProductId(id:number):Promise<Order | null>{
@@ -32,7 +38,7 @@ export class OrderService {
 
     async create(product:Product , quantity:number , user:User):Promise<Order>{
 
-        const foundOrder = await this.findByProductId(Number(product.id));
+        const foundOrder = await this.findByProductId(product.id);
 
         if(foundOrder){
             return foundOrder ;
@@ -49,13 +55,10 @@ export class OrderService {
     }
 
     async update(id:number , user:User ,updateOrderDto:UpdateOrderDto):Promise<Order | null>{
-        const foundOrder = await this.findOne(user,Number(id));
+        const foundOrder = await this.findOne(user,id);
         const foundProduct = await this.productService.findOne(foundOrder.productId);
 
-        if(!foundOrder){
-            return null ;
-        }
-        if(!foundProduct){
+        if(!foundOrder || !foundProduct){
             return null ;
         }
 
@@ -66,6 +69,6 @@ export class OrderService {
             total : foundProduct.price * updateOrderDto.quantity 
         } 
 
-        return this.prisma.order.update({where : foundOrder , data:data});
+        return this.prisma.order.update({where : {id : foundOrder.id} , data:data});
     }
 }

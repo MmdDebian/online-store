@@ -33,8 +33,10 @@ export class OrderController {
         const foundOrder = await this.orderService.findOne(req.user , id);
 
         if(!foundOrder){
-            return new NotFoundException('Order is not found')
+            throw new NotFoundException('Order is not found')
         }
+
+        return foundOrder
     }
 
     @Post(':id')
@@ -42,7 +44,7 @@ export class OrderController {
         const product = await this.productservice.findOne(id);
 
         if(!product){
-            return new NotFoundException('Product is not found');
+            throw new NotFoundException('Product is not found');
         }
 
         const newOrder = await this.orderService.create(product , body.quantity , req.user);
@@ -51,11 +53,11 @@ export class OrderController {
     }
 
     @Put(':id')
-    async update(@Req() req , @Param() id:number , @Body() updateOrderDto:UpdateOrderDto):Promise<Order | HttpException>{
+    async update(@Req() req , @Param('id') id:number , @Body() updateOrderDto:UpdateOrderDto):Promise<Order | HttpException>{
         const result = await this.orderService.update(id , req.user , updateOrderDto);
 
         if(!result){
-            return new BadRequestException('Order or product is invalid');
+            throw new BadRequestException('Order or product is invalid');
         }
 
         return result ;

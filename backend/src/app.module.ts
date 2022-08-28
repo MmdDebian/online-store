@@ -1,22 +1,22 @@
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
-import { ProfileController } from './profile/profile.controller';
-import { ProfileService } from './profile/profile.service';
-import { ProfileModule } from './profile/profile.module';
-import { UsersService } from './users/users.service';
-import { AuthController } from './auth/auth.controller';
-import { AuthService } from './auth/auth.service';
-import { AuthModule } from './auth/auth.module';
-import { AuthMiddleware } from './auth/auth.middleware';
-import { ProductController } from './product/product.controller';
-import { ProductService } from './product/product.service';
-import { ProductModule } from './product/product.module';
-import { OrderController } from './order/order.controller';
-import { OrderService } from './order/order.service';
-import { OrderModule } from './order/order.module';
-import { PrismaService } from './prisma/prisma.service';
+import { UsersModule } from './modules/users/users.module';
+import { ProfileController } from './modules/profile/profile.controller';
+import { ProfileService } from './modules/profile/profile.service';
+import { ProfileModule } from './modules/profile/profile.module';
+import { UsersService } from './modules/users/users.service';
+import { AuthController } from './modules/auth/auth.controller';
+import { AuthService } from './modules/auth/auth.service';
+import { AuthModule } from './modules/auth/auth.module';
+import { AuthMiddleware } from './modules/auth/auth.middleware';
+import { ProductController } from './modules/product/product.controller';
+import { ProductService } from './modules/product/product.service';
+import { ProductModule } from './modules/product/product.module';
+import { OrderController } from './modules/order/order.controller';
+import { OrderService } from './modules/order/order.service';
+import { OrderModule } from './modules/order/order.module';
+import { PrismaService } from './modules/prisma/prisma.service';
 
 
 @Module({

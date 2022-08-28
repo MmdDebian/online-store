@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Order, User , Product } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { ProductService } from 'src/product/product.service';
-import { UsersService } from 'src/users/users.service';
+import { PrismaService } from 'src/modules/prisma/prisma.service';
+import { ProductService } from 'src/modules/product/product.service';
+import { UsersService } from 'src/modules/users/users.service';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { IOrder } from './order.interface';
 
@@ -18,12 +18,12 @@ export class OrderService {
         return this.prisma.order.findMany()
     }
 
-    findOne(id):Promise<Order | null>{
-        return this.prisma.order.findUnique({where : {id : parseInt(id)}})
+    findOne(id:number):Promise<Order | null>{
+        return this.prisma.order.findUnique({where : {id : id}})
     }
 
-    findByProductId(id):Promise<Order | null>{
-        return this.prisma.order.findFirst({where : { productId : parseInt(id) }});
+    findByProductId(id:number):Promise<Order | null>{
+        return this.prisma.order.findFirst({where : { productId : id}});
     }
 
     async create(product:Product , quantity:number , user:User):Promise<Order>{
@@ -44,8 +44,8 @@ export class OrderService {
         return this.prisma.order.create({data:newOrder});
     }
 
-    async update(id , user:User ,updateOrderDto:UpdateOrderDto):Promise<Order | null>{
-        const foundOrder = await this.findOne(parseInt(id));
+    async update(id:number , user:User ,updateOrderDto:UpdateOrderDto):Promise<Order | null>{
+        const foundOrder = await this.findOne(id);
         const foundProduct = await this.productService.findOne(foundOrder.productId);
 
         if(!foundOrder){

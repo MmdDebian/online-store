@@ -2,7 +2,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as cors from 'cors';
-import { PrismaService } from './prisma/prisma.service';
+import { PrismaService } from './modules/prisma/prisma.service';
 
 
 async function bootstrap() {

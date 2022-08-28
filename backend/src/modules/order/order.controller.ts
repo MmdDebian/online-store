@@ -13,7 +13,7 @@ import {
 import { Order } from '@prisma/client';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { OrderService } from './order.service';
-import { ProductService } from 'src/product/product.service'
+import { ProductService } from 'src/modules/product/product.service'
 import { UpdateOrderDto } from './dto/update-order.dto';
 
 @Controller('order')

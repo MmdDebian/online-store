@@ -37,6 +37,8 @@ export class AppModule implements NestModule {
         { path : 'users/*' , method : RequestMethod.GET },
         { path : 'users/*' , method : RequestMethod.POST },
         { path : 'users/*' , method : RequestMethod.PUT },
+        { path : 'order' , method : RequestMethod.ALL } ,
+        { path : 'order/*' , method : RequestMethod.ALL } ,
       )
   }
 }

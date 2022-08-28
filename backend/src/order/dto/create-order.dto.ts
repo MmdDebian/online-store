@@ -1,6 +1,3 @@
-export class createOrderDto {
-    readonly userId : string 
-    readonly productId : number 
+export class CreateOrderDto {
     readonly quantity : number 
-    readonly total : number 
 }

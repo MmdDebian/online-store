@@ -24,13 +24,13 @@ export class OrderController {
     ){}
 
     @Get('')
-    async findAll():Promise<Order[]>{
-        return await this.orderService.findAll()
+    async findAll(@Req() req):Promise<Order[]>{
+        return await this.orderService.findAll(req.user);
     }
 
     @Get(':id')
-    async findOne(@Param('id') id:number):Promise<Order | HttpException>{
-        const foundOrder = await this.orderService.findOne(id);
+    async findOne(@Req() req ,  @Param('id') id:number):Promise<Order | HttpException>{
+        const foundOrder = await this.orderService.findOne(req.user , id);
 
         if(!foundOrder){
             return new NotFoundException('Order is not found')

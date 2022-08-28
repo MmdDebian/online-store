@@ -14,21 +14,25 @@ export class OrderService {
         private prisma:PrismaService
     ){}
 
-    findAll():Promise<Order[]>{
-        return this.prisma.order.findMany()
+    findAll(user:User):Promise<Order[]>{
+        return this.prisma.order.findMany({
+            where : {
+                userId : user.id  
+            }
+        })
     }
 
-    findOne(id:number):Promise<Order | null>{
-        return this.prisma.order.findUnique({where : {id : id}})
+    findOne(user:User , id:number):Promise<Order | null>{
+        return this.prisma.order.findUnique({where : {id : Number(id)}})
     }
 
-    findByProductId(id:number):Promise<Order | null>{
-        return this.prisma.order.findFirst({where : { productId : id}});
+    private findByProductId(id:number):Promise<Order | null>{
+        return this.prisma.order.findFirst({where : { productId : Number(id)}});
     }
 
     async create(product:Product , quantity:number , user:User):Promise<Order>{
 
-        const foundOrder = await this.findByProductId(product.id);
+        const foundOrder = await this.findByProductId(Number(product.id));
 
         if(foundOrder){
             return foundOrder ;
@@ -45,7 +49,7 @@ export class OrderService {
     }
 
     async update(id:number , user:User ,updateOrderDto:UpdateOrderDto):Promise<Order | null>{
-        const foundOrder = await this.findOne(id);
+        const foundOrder = await this.findOne(user,Number(id));
         const foundProduct = await this.productService.findOne(foundOrder.productId);
 
         if(!foundOrder){

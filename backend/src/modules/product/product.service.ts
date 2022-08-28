@@ -16,7 +16,7 @@ export class ProductService {
     }
 
     findOne(id:number):Promise<Product | null>{
-        return this.prisma.product.findUnique({where : {id : id}});
+        return this.prisma.product.findUnique({where : {id : Number(id)}});
     }
 
     findByName(name:string):Promise<Product | null>{
@@ -28,11 +28,11 @@ export class ProductService {
     }
 
     update(product:Product , data:createProductDto):Promise<Product | null>{
-        return this.prisma.product.update({where : {id : product.id} , data : data})
+        return this.prisma.product.update({where : {id : Number(product.id)} , data : data})
     }
 
     delete(product:Product):Promise<any>{
-        return this.prisma.product.delete({where : {id : product.id}});
+        return this.prisma.product.delete({where : {id : Number(product.id)}});
     }
 
 }

@@ -21,10 +21,6 @@ function Home() {
         })
     },[])
 
-    if(loading){
-        return <h1>loading . . .</h1>
-    }
-
     return (
         <>
             <div className="top-header container-fluid">
@@ -71,6 +67,7 @@ function Home() {
             <div class="container">
 	            <div class="row">
                     <h1>Top Products</h1>
+                    {loading && (<h1>loading . . .</h1>)}
                     {error && (<h1>{error}</h1>)}
                     {products && (
                         products.map((product , key)=>{

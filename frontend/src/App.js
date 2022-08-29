@@ -8,6 +8,8 @@ import Login from './components/Login';
 import { useEffect, useState } from 'react';
 import { getUser } from './services/users.service';
 import Profile from './components/Profile';
+import Product from './components/Product';
+import IndexProduct from './components/indexProduct';
 
 function App() {
   
@@ -67,7 +69,8 @@ function App() {
       <Routes>
         <Route path='/' element={<Home/>} />
         <Route path='/about' element={<About/>} />
-        <Route path='/content' element={<Content/>} />
+        <Route path='/product' element={<Product />} />
+        <Route path='/product/:id' element={<IndexProduct />} />
         <Route path='/auth'>
           <Route path='register' element={<Register/>} />
           <Route path='login' element={<Login />} />

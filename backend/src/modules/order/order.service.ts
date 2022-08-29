@@ -16,6 +16,9 @@ export class OrderService {
         return this.prisma.order.findMany({
             where : {
                 userId : user.id ,
+            } ,
+            include : {
+                product : true
             }
         })
     }
@@ -58,7 +61,11 @@ export class OrderService {
         const foundOrder = await this.findOne(user,id);
         const foundProduct = await this.productService.findOne(foundOrder.productId);
 
-        if(!foundOrder || !foundProduct){
+        if(!foundProduct){
+            return null ;
+        }
+
+        if(!foundOrder){
             return null ;
         }
 

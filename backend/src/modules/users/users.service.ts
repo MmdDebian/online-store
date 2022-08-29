@@ -23,7 +23,13 @@ export class UsersService {
 
   async create(createUserDto:CreateUserDto) {
     createUserDto.password = await this.hashPassword(createUserDto.password);
-    return this.prisma.user.create({data : createUserDto});
+    return this.prisma.user.create({
+      data : {
+        name : createUserDto.name , 
+        email : createUserDto.email ,
+        password : createUserDto.password
+      }
+    });
   }
 
   findAll():Promise<User[]> {

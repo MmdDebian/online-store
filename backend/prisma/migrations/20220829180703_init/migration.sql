@@ -21,6 +21,7 @@ CREATE TABLE `Product` (
     `discount` INTEGER NULL,
     `color` VARCHAR(191) NULL,
     `size` INTEGER NULL,
+    `quantity` INTEGER NULL DEFAULT 1,
     `top` BOOLEAN NOT NULL DEFAULT false,
     `description` TEXT NOT NULL,
 

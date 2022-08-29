@@ -1,8 +1,9 @@
-import { IsNumber, Max, Min } from "class-validator";
+import { IsNotEmpty, IsNumber, Max, Min } from "class-validator";
 
 export class CreateOrderDto {
+    @IsNotEmpty()
     @IsNumber()
-    @Min(0)
+    @Min(-0)
     @Max(10)
     quantity : number ;
 }

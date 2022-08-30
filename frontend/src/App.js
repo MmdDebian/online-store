@@ -7,7 +7,7 @@ import OrderModel from './components/modals/OrderModal';
 import Register from './components/auth/Register';
 import NotFound from './components/NotFound';
 import Login from './components/auth/Login';
-import Profile from './components/Profile';
+import Profile from './components/profile/Profile';
 import Product from './components/products/Product';
 import IndexProduct from './components/products/indexProduct';
 

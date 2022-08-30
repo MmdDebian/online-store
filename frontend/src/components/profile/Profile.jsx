@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { logOut } from "../services/auth.service";
-import { allOrders } from "../services/order.service";
-import LogOut from "./auth/LogOut";
+import { allOrders } from "../../services/order.service";
+import LogOut from "../auth/LogOut";
 
 function Profile(props) {
     const user = props.user ;    

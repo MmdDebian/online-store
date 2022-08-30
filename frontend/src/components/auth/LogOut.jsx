@@ -5,7 +5,6 @@ async function LogOut() {
     localStorage.removeItem('token');
     navigate('/');
     window.location.reload();
-    return ;
 }
 
 export default LogOut;

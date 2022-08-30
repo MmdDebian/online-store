@@ -64,7 +64,7 @@ function Home() {
                 </div>
             </div>
             
-            <div class="container">
+            <div class="container mt-5 mb-5">
 	            <div class="row">
                     <h1>Top Products</h1>
                     {loading && (<h1>loading . . .</h1>)}
@@ -93,7 +93,7 @@ function Home() {
                                                             <li className="list-inline-item"><i className="fa fa-star-o"></i></li>
                                                         </ul>
                                                     </div>
-                                                    <a href="#" className="btn btn-primary justify-center">Add to Cart</a>
+                                                    <a href="#" style={{width:"100%"}} className="btn btn-primary justify-center">Add to Cart</a>
                                                 </div>						
                                             </div>  
                                         </div>

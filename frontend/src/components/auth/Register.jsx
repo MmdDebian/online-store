@@ -1,8 +1,8 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik' ;
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { register } from '../services/auth.service';
-import { getUser } from '../services/users.service';
+import { register } from '../../services/auth.service';
+import { getUser } from '../../services/users.service';
 
 function Register() {
 
@@ -70,7 +70,7 @@ function Register() {
                                     <Form className="mx-1 mx-md-4">
 
                                     <div className="d-flex flex-row align-items-center mb-4">
-                                        <i className="fas fa-user fa-lg me-3 fa-fw"></i>
+                                        <i className="fa fa-user fa-lg me-3 fa-fw"></i>
                                         <div className="form-outline flex-fill mb-0">
                                         <label className="form-label" htmlFor="name">Your Name</label>
                                         <Field type="text" name="name" id="name" className="form-control" />
@@ -79,7 +79,7 @@ function Register() {
                                     </div>
 
                                     <div className="d-flex flex-row align-items-center mb-4">
-                                        <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                                        <i className="fa fa-envelope fa-lg me-3 fa-fw"></i>
                                         <div className="form-outline flex-fill mb-0">
                                         <label className="form-label" htmlFor="email">Your Email</label>
                                         <Field type="text" name="email" id="email" className="form-control" />
@@ -88,7 +88,7 @@ function Register() {
                                     </div>
 
                                     <div className="d-flex flex-row align-items-center mb-4">
-                                        <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
+                                        <i className="fa fa-lock fa-lg me-3 fa-fw"></i>
                                         <div className="form-outline flex-fill mb-0">
                                         <label className="form-label" htmlFor="password">Password</label>
                                         <Field type="text" name="password" id="password" className="form-control" />

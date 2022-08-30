@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { logOut } from "../services/auth.service";
 import { allOrders } from "../services/order.service";
+import LogOut from "./auth/LogOut";
 
 function Profile(props) {
     const user = props.user ;    
@@ -28,13 +29,6 @@ function Profile(props) {
         })
     },[])
 
-    
-    const handleLogOut = ()=>{
-        logOut()
-        window.location.reload();
-        navigate('/');
-    }
-
     return ( 
         <>
             <div className="container-fluid bg-dark text-light p-5">
@@ -49,7 +43,7 @@ function Profile(props) {
                        }
                     </div>
                     <div className="col-sm-6">
-                        <button onClick={handleLogOut} className="btn btn-danger">Log out !</button>
+                        <button onClick={LogOut} className="btn btn-danger">Log out !</button>
                     </div>
                 </div>
             </div>

@@ -16,8 +16,3 @@ export function login(email , password){
         password : password
     })
 }
-
-export function logOut(){
-    localStorage.clear('token')
-    return true ;
-}

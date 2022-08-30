@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { allProducts } from "../services/product.service";
+import { allProducts } from "../../services/product.service";
 
 function Product() {
     const [loading , setLoading] = useState(false);

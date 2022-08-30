@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { allOrders } from "../../services/order.service";
 import LogOut from "../auth/LogOut";
 
@@ -42,7 +42,7 @@ function Profile(props) {
                        }
                     </div>
                     <div className="col-sm-6">
-                        <button onClick={LogOut} className="btn btn-danger">Log out !</button>
+                       <NavLink className='btn btn-danger' to='/logout'>Log Out !</NavLink>
                     </div>
                 </div>
             </div>

@@ -1,10 +1,16 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-async function LogOut() {
+function LogOut() {
     const navigate = useNavigate();
-    localStorage.removeItem('token');
-    navigate('/');
-    window.location.reload();
+
+    useEffect(()=>{
+        localStorage.removeItem('token');
+        navigate('/');
+        window.location.reload();
+    },[])
+    
+    return null ;
 }
 
 export default LogOut;

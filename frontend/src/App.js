@@ -10,6 +10,7 @@ import Login from './components/auth/Login';
 import Profile from './components/profile/Profile';
 import Product from './components/products/Product';
 import IndexProduct from './components/products/indexProduct';
+import LogOut from './components/auth/LogOut';
 
 
 function App() {
@@ -89,6 +90,7 @@ function App() {
           <Route path='login' element={<Login />} />
         </Route>
         <Route path='/profile' element={<Profile  user={user} />} />
+        <Route path='/logout' element={<LogOut />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
       <OrderModel user={user} />

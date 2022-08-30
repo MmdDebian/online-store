@@ -1,7 +1,7 @@
 import { Link, NavLink, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import About from './components/About';
-import Content from './components/Content';
+import Modal from './components/Modal';
 import Register from './components/Register';
 import NotFound from './components/NotFound';
 import Login from './components/Login';
@@ -32,7 +32,7 @@ function App() {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
+          <ul className="navbar-nav mr-auto">
             <li className="nav-item">
               <NavLink className='nav-link' to='/'>Home</NavLink>
             </li>
@@ -41,7 +41,7 @@ function App() {
             </li>
             {
               user ? (
-                <>
+                <div className='d-flex'>
                   <li className="nav-item">
                     <NavLink className='nav-link' to='/profile'>Profile</NavLink>
                   </li>
@@ -50,19 +50,35 @@ function App() {
                       <NavLink className='nav-link' to='/admin'>Admin</NavLink>
                     )
                   }
-                </>
+                </div>
               ) : (
-                <>
+                <div className='d-flex'>
                   <li className="nav-item">
                     <NavLink className='nav-link' to='/auth/register'>Register</NavLink>
                   </li>
                   <li className="nav-item">
                     <NavLink className='nav-link' to='/auth/login'>Login</NavLink>
                   </li>
-                </>
+                </div>
               )
             }
           </ul>
+          <ul class="navbar-nav ">
+      <li class="nav-item">
+        <a class="nav-link" href="#staticBackdrop">
+          <i class="fa fa-store">
+            <span class="badge badge-info">11</span>
+          </i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          <i class="fa fa-globe">
+            <span class="badge badge-success">11</span>
+          </i>
+        </a>
+      </li>
+    </ul>
         </div>
       </div>
     </nav>
@@ -78,6 +94,7 @@ function App() {
         <Route path='/profile' element={<Profile  user={user} />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
+      <Modal />
     </>
   );
 }

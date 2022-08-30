@@ -73,7 +73,11 @@ function Profile(props) {
                                         orders.map((order , key)=>{
                                             return (
                                                 <tr key={key}>
-                                                    <td>{order.product.name}</td>
+                                                    <td>
+                                                        <img src="https://fakeimg.pl/300/" width={50} height={50} /><br />
+                                                        <b>{order.product.name}</b><br />
+                                                        <small>{order.product.price}$</small>
+                                                    </td>
                                                     <td>{order.quantity}</td>
                                                     <td>{order.total}</td>
                                                     <td>

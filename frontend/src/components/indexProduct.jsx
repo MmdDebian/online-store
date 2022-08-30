@@ -7,7 +7,7 @@ function IndexProduct() {
     const [loading , setLoading] = useState(false);
     const [error , setError] = useState('');
     const [product , setProduct] = useState([]);
-
+    const [quantity , setQuantity ] = useState(1);
     useEffect(()=>{
         setLoading(true);
         getProductById(id)
@@ -21,6 +21,15 @@ function IndexProduct() {
             setError('Product is not found !')
         })
     },[])
+
+
+    const addQuantity = ()=>{
+        setQuantity(count=>count+1)
+    }
+
+    const lowQunatity = ()=>{
+        setQuantity(count=> count-1)
+    }
 
     return ( 
         <>
@@ -41,6 +50,11 @@ function IndexProduct() {
                                     <p class="card-text text-success">discount : {product.discount}</p>
                                     <p class="card-text">color : {product.color}</p>
                                     <p class="card-text">size {product.size}</p>
+                                </div>
+                                <div>
+                                    <button className="btn btn-info" onClick={addQuantity}>+</button>
+                                    <h1>quantity : {quantity}</h1>
+                                    <button className="btn btn-info" disabled={()=>{if(quantity < 1)return true}} onClick={()=>{setQuantity(lowQunatity)}}>-</button>
                                 </div>
                             </div>
                         </>   

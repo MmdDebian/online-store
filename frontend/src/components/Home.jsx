@@ -75,7 +75,7 @@ function Home() {
                                 console.log(product)
                                 return ( 
                                     <>
-                                        <div key={key} class="col-md">
+                                        <div key={key} class="col-md mt-2">
                                             <div className="thumb-wrapper">
                                                 <div className="img-box">
                                                     <img src="https://fakeimg.pl/300/" className="img-fluid" alt=""/>

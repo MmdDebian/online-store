@@ -1,6 +1,9 @@
 import axios from "axios";
 import url from "../utils/url";
 
+const token = localStorage.getItem('token');
+axios.defaults.headers.common = {'x-auth-token' : token};
+
 export function allOrders(){
     return axios.get(url.order);
 }

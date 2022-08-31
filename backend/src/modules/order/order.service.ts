@@ -35,16 +35,25 @@ export class OrderService {
         })
     }
 
-    private findByProductId(id:number):Promise<Order | null>{
-        return this.prisma.order.findFirst({where : { productId : Number(id)}});
+    private findByProductId(id:number , user:User):Promise<Order | null>{
+        return this.prisma.order.findFirst({
+            where : { productId : Number(id) , user:user} , 
+        });
     }
 
     async create(product:Product , quantity:number , user:User):Promise<Order>{
 
-        const foundOrder = await this.findByProductId(product.id);
+        const foundOrder = await this.findByProductId(product.id , user);
 
         if(foundOrder){
-            return foundOrder ;
+            const updateProduct = await this.prisma.order.update({
+                where : { id : foundOrder.id },
+                data : { 
+                    quantity : quantity ,
+                    total : quantity * product.price
+                },
+            })
+            return updateProduct ;
         }
 
         const newOrder:IOrder = {

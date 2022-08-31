@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { addOrder } from "../../services/order.service";
 import { getProductById } from "../../services/product.service";
 
 function IndexProduct() {
@@ -37,6 +38,19 @@ function IndexProduct() {
         setQuantity(quantity);
     }
 
+
+    const handleOrder = async ()=>{
+        addOrder(product.id , quantity)
+        .then((response)=>{
+            window.location.reload();
+            alert('success')
+        })
+        .cathc(err=>{
+            console.error(err)
+            alert('error')
+        })
+    }
+
     return ( 
         <>
             <div className="container">
@@ -62,7 +76,7 @@ function IndexProduct() {
                                     <h1>{quantity}</h1>
                                     <button className="btn btn-info" onClick={()=>{setQuantity(lowQunatity)}}>-</button>
                                 </div>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                <button type="button" class="btn btn-primary" onClick={handleOrder}>
                                     add cart
                                 </button>
                             </div>

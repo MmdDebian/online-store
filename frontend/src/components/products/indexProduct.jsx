@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { addOrder } from "../../services/order.service";
 import { getProductById } from "../../services/product.service";
 
 function IndexProduct() {
     const {id} = useParams();
+    const navigate = useNavigate();
     const [loading , setLoading] = useState(false);
     const [error , setError] = useState('');
     const [product , setProduct] = useState([]);
@@ -45,9 +46,13 @@ function IndexProduct() {
             window.location.reload();
             alert('success')
         })
-        .cathc(err=>{
+        .catch(err=>{
             console.error(err)
-            alert('error')
+            if(err.response.status === 401){
+                navigate('/auth/login')
+            }else{
+                alert('intenal server error')
+            }
         })
     }
 

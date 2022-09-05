@@ -12,7 +12,6 @@ import Product from './components/products/Product';
 import IndexProduct from './components/products/indexProduct';
 import LogOut from './components/auth/LogOut';
 
-
 function App() {
   const [user , setUser] = useState(null);
 

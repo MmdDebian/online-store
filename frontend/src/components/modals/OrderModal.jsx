@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { NavLink } from 'react-router-dom';
 import { allOrders } from "../../services/order.service";
 
 function Modal(props) {
@@ -19,6 +20,11 @@ function Modal(props) {
             setError('intrnal server error')
         })
     },[])
+
+    const removeHandle = async (id)=>{
+        console.log(id)
+    }
+
     return ( 
         <>
             <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -56,8 +62,7 @@ function Modal(props) {
                                                         <td>{order.quantity}</td>
                                                         <td>{order.total}</td>
                                                         <td>
-                                                            <a className="btn btn-success" href="#">upfate</a>
-                                                            <a className="btn btn-danger" href="#">remove</a>
+                                                            <button onClick={()=>{removeHandle(order.id)}} className="btn btn-danger" >Remove</button>
                                                         </td>
                                                     </tr>
                                                 )
@@ -72,7 +77,7 @@ function Modal(props) {
                 </div>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-primary">Understood</button>
+                    <button type="button" className="btn btn-success">Payment</button>
                 </div>
                 </div>
             </div>

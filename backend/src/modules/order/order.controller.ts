@@ -8,7 +8,8 @@ import {
     Param, 
     Post, 
     Put,
-    BadRequestException
+    BadRequestException,
+    Delete
 } from '@nestjs/common';
 import { Order } from '@prisma/client';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -61,6 +62,11 @@ export class OrderController {
         }
 
         return result ;
+    }
+
+    @Delete(':id')
+    async delete(@Param('id') id:number):Promise<HttpException>{
+        return this.orderService.delete(id);
     }
 
 }

@@ -87,4 +87,8 @@ export class OrderService {
 
         return this.prisma.order.update({where : {id : foundOrder.id} , data:data});
     }
+
+    async delete(id:number):Promise<any>{
+        return this.prisma.order.delete({where : {id : id}})
+    }
 }

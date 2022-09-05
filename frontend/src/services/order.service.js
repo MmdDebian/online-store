@@ -8,14 +8,12 @@ export function allOrders(){
     return axios.get(url.order);
 }
 
-export async function addOrder(productId , quantity){
-    const response = await axios.post(url.order + `/${productId}` , {
+export function addOrder(productId , quantity){
+    return axios.post(url.order + `/${productId}` , {
         quantity : quantity        
     });
+}
 
-    if(!response){
-        return null ;
-    }
-
-    return response.data
+export function deleteOrder(id){
+    return axios.delete(url.order + `/${id}`);
 }

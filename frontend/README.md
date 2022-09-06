@@ -14,14 +14,14 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 
 ## login page 
-[login image](../images/login.jpg)
+![login image](../images/login.jpg)
 
 
 ## add cart page 
-[add cart img](../images/addOrder.jpg)
+![add cart img](../images/addOrder.jpg)
 
 ## cart list page
-[add cart img](../images/orderList.jpg)
+![add cart img](../images/orderList.jpg)
 
 ## profile page 
-[Profile cart img](../images/profile.jpg)
+![Profile cart img](../images/profile.jpg)

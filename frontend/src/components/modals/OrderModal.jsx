@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from 'react-router-dom';
 import { allOrders } from "../../services/order.service";
 
+
 function Modal(props) {
     const user = props.user ;
     const [ loading , setLoading ] = useState(false);

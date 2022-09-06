@@ -89,6 +89,6 @@ export class OrderService {
     }
 
     async delete(id:number):Promise<any>{
-        return this.prisma.order.delete({where : {id : id}})
+        return this.prisma.order.delete({where : {id : Number(id)}})
     }
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink } from 'react-router-dom';
-import { allOrders } from "../../services/order.service";
+import { allOrders, deleteOrder } from "../../services/order.service";
 
 
 function Modal(props) {
@@ -23,7 +23,18 @@ function Modal(props) {
     },[])
 
     const removeHandle = async (id)=>{
-        console.log(id)
+        setLoading(true);
+
+        deleteOrder(id)
+        .then((response)=>{
+            allOrders().then((response)=>{
+                setLoading(false)
+                setOrders(response.data)
+            })
+        })
+        .catch((err)=>{
+            setLoading(false)
+        })
     }
 
     return ( 

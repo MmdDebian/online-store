@@ -30,7 +30,7 @@ CREATE TABLE `Product` (
 
 -- CreateTable
 CREATE TABLE `Order` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` VARCHAR(191) NOT NULL,
     `userId` VARCHAR(191) NOT NULL,
     `productId` INTEGER NOT NULL,
     `quantity` INTEGER NULL DEFAULT 1,

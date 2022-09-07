@@ -30,7 +30,7 @@ export class OrderController {
     }
 
     @Get(':id')
-    async findOne(@Req() req ,  @Param('id') id:number):Promise<Order | HttpException>{
+    async findOne(@Req() req ,  @Param('id') id:string):Promise<Order | HttpException>{
         const foundOrder = await this.orderService.findOne(req.user , id);
 
         if(!foundOrder){
@@ -54,7 +54,7 @@ export class OrderController {
     }
 
     @Put(':id')
-    async update(@Req() req , @Param('id') id:number , @Body() updateOrderDto:UpdateOrderDto):Promise<Order | HttpException>{
+    async update(@Req() req , @Param('id') id:string , @Body() updateOrderDto:UpdateOrderDto):Promise<Order | HttpException>{
         const result = await this.orderService.update(id , req.user , updateOrderDto);
 
         if(!result){
@@ -65,7 +65,7 @@ export class OrderController {
     }
 
     @Delete(':id')
-    async delete(@Param('id') id:number):Promise<HttpException>{
+    async delete(@Param('id') id:string):Promise<HttpException>{
         return this.orderService.delete(id);
     }
 

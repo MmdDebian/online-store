@@ -23,10 +23,10 @@ export class OrderService {
         })
     }
 
-    findOne(user:User , id:number):Promise<Order | null>{
+    findOne(user:User , id:string):Promise<Order | null>{
         return this.prisma.order.findFirst({
             where : {
-                id : Number(id) ,
+                id : id ,
                 userId : user.id 
             },
             include : {
@@ -66,7 +66,7 @@ export class OrderService {
         return this.prisma.order.create({data:newOrder});
     }
 
-    async update(id:number , user:User ,updateOrderDto:UpdateOrderDto):Promise<Order | null>{
+    async update(id:string , user:User ,updateOrderDto:UpdateOrderDto):Promise<Order | null>{
         const foundOrder = await this.findOne(user,id);
         const foundProduct = await this.productService.findOne(foundOrder.productId);
 
@@ -79,7 +79,7 @@ export class OrderService {
         }
 
         const data:IOrder = { 
-            productId : foundOrder.id ,
+            productId : foundProduct.id ,
             quantity : updateOrderDto.quantity ,
             userId : user.id ,
             total : foundProduct.price * updateOrderDto.quantity 
@@ -88,7 +88,7 @@ export class OrderService {
         return this.prisma.order.update({where : {id : foundOrder.id} , data:data});
     }
 
-    async delete(id:number):Promise<any>{
-        return this.prisma.order.delete({where : {id : Number(id)}})
+    async delete(id:string):Promise<any>{
+        return this.prisma.order.delete({where : {id : id}})
     }
 }

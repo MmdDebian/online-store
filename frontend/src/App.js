@@ -11,6 +11,7 @@ import Profile from './components/profile/Profile';
 import Product from './components/products/Product';
 import IndexProduct from './components/products/indexProduct';
 import LogOut from './components/auth/LogOut';
+import Admin from './components/admin/Admin';
 
 function App() {
   const [user , setUser] = useState(null);
@@ -88,6 +89,7 @@ function App() {
           <Route path='register' element={<Register/>} />
           <Route path='login' element={<Login />} />
         </Route>
+        <Route path='/admin' element={<Admin  user={user} />} />
         <Route path='/profile' element={<Profile  user={user} />} />
         <Route path='/logout' element={<LogOut />} />
         <Route path='*' element={<NotFound />} />

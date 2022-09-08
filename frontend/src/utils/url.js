@@ -4,4 +4,5 @@ export default {
     product : 'http://localhost:3001/product',
     auth : 'http://localhost:3001/auth',
     order : 'http://localhost:3001/order',
+    users : 'http://localhost:3001/users'
 }

@@ -8,3 +8,7 @@ axios.defaults.headers.common = {'x-auth-token' : token};
 export function getUser(){
     return axios.get(url.profile);
 }
+
+export function getAllUsers(){
+    return axios.get(url.users)
+}
